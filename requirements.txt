@@ -1,5 +1,4 @@
 jupyter
-
 langchain
 python-dotenv
 langchain
