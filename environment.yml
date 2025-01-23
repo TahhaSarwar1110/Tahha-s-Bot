@@ -9,3 +9,4 @@ dependencies:
       - openai
       - chromadb
       - python-dotenv
+      - jupyter
