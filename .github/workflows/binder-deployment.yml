@@ -1,0 +1,36 @@
+name: Binder Deployment
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  binder:
+    runs-on: ubuntu-latest
+    steps:
+      # Check out the repository
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Set up Python environment
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'  # Use the appropriate version
+
+      # Install dependencies from requirements.txt
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      # Set up environment variables using GitHub Secrets
+      - name: Set environment variables
+        run: echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
+
+      # Run the binder environment setup (optional)
+      - name: Run the Jupyter notebook
+        run: jupyter nbconvert --execute --to notebook YourNotebook.ipynb
